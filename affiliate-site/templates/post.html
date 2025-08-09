@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}{{ post.title }} — {{ site.site_name }}{% endblock %}
+{% set canonical_url = site.base_url.rstrip('/') + '/' + post.slug + '/' %}
+{% block og_title %}{{ post.title }}{% endblock %}
+{% block og_desc %}{{ post.description }}{% endblock %}
+{% block content %}
+  <article class="post">
+    <header>
+      <h1>{{ post.title }}</h1>
+      <p class="meta">Publié le {{ post.date|datefmt }} · {{ post.reading_minutes }} min</p>
+      <p class="disclosure">Transparence: Cet article contient des liens d'affiliation. Nous pouvons gagner une commission si vous achetez via nos liens.</p>
+      <script type="application/ld+json">
+      {{ {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": post.title,
+        "datePublished": post.date.isoformat(),
+        "author": {"@type": "Organization", "name": site.author.name},
+        "mainEntityOfPage": canonical_url,
+        "description": post.description
+      } | tojson }}
+      </script>
+    </header>
+    <div class="content">
+      {{ post.html | safe }}
+    </div>
+
+    {% if post.affiliate_ctas %}
+      <div class="ctas">
+        {% for cta in post.affiliate_ctas %}
+          <a class="btn" rel="nofollow sponsored" href="/go/{{ cta.slug }}/">{{ cta.label }}</a>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </article>
+{% endblock %}

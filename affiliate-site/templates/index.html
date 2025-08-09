@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}{{ site.site_name }} — {{ site.description }}{% endblock %}
+{% block og_title %}{{ site.site_name }}{% endblock %}
+{% block og_desc %}{{ site.description }}{% endblock %}
+{% block content %}
+  <section class="hero">
+    <h1>{{ site.site_name }}</h1>
+    <p>{{ site.description }}</p>
+  </section>
+  <section class="grid">
+    {% for post in posts %}
+      <article class="card">
+        <h2><a href="/{{ post.slug }}/">{{ post.title }}</a></h2>
+        <p class="meta">{{ post.date|datefmt }} · {{ post.reading_minutes }} min</p>
+        <p>{{ post.description }}</p>
+        {% if post.affiliate_ctas and post.affiliate_ctas[0].slug %}
+        <p><a class="btn" rel="nofollow sponsored" href="/go/{{ post.affiliate_ctas[0].slug }}/">Découvrir</a></p>
+        {% endif %}
+      </article>
+    {% endfor %}
+  </section>
+{% endblock %}
