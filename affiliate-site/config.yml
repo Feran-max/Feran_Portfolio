@@ -1,0 +1,28 @@
+site_name: "Guide Affiliation Pro"
+base_url: "http://localhost:8080"
+locale: fr_FR
+author:
+  name: "Votre Marque"
+  url: "https://example.com"
+description: "Tests, comparatifs et guides pour choisir les meilleurs produits avec des liens d'affiliation."
+
+# Plausible or GA placeholder (set one)
+analytics:
+  provider: "none"  # plausible|gtag|none
+  domain: "example.com"
+  gtag_id: "G-XXXXXXXXXX"
+
+# Affiliate link registry. Slug => target URL
+affiliates:
+  hebergeur-rapide: "https://affiliate.example.com/host?ref=abc123"
+  vpn-securise: "https://affiliate.example.com/vpn?ref=xyz789"
+  micro-casque-pro: "https://affiliate.example.com/headset?ref=987"
+
+# Redirect pages generation
+redirects:
+  - slug: hebergeur-rapide
+    title: "Hébergeur web rapide recommandé"
+  - slug: vpn-securise
+    title: "VPN sécurisé recommandé"
+  - slug: micro-casque-pro
+    title: "Micro-casque pro recommandé"

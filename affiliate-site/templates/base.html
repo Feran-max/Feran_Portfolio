@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr" prefix="og: http://ogp.me/ns#">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title %}{{ site.site_name }}{% endblock %}</title>
+    <meta name="description" content="{{ site.description }}" />
+    <link rel="canonical" href="{{ canonical if canonical else site.base_url }}" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="{{ site.site_name }}" />
+    <meta property="og:title" content="{% block og_title %}{{ site.site_name }}{% endblock %}" />
+    <meta property="og:description" content="{% block og_desc %}{{ site.description }}{% endblock %}" />
+    <meta property="og:url" content="{{ canonical if canonical else site.base_url }}" />
+
+    <link rel="stylesheet" href="/static/style.css" />
+
+    {% if site.analytics.provider == 'plausible' %}
+    <script defer data-domain="{{ site.analytics.domain }}" src="https://plausible.io/js/script.js"></script>
+    {% elif site.analytics.provider == 'gtag' %}
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.analytics.gtag_id }}"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', '{{ site.analytics.gtag_id }}');
+    </script>
+    {% endif %}
+
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container">
+        <a class="brand" href="/">{{ site.site_name }}</a>
+        <nav>
+          <a href="/a-propos/">À propos</a>
+          <a href="/c/general/">Guides</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>© {{ site.author.name }} — {{ now().year if now else '' }}</p>
+        <p>
+          Mentions: Certains liens sont des liens d'affiliation. En tant que partenaire, nous pouvons percevoir une commission si vous achetez via nos liens, sans frais pour vous.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>
